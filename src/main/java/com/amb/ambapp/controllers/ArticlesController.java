@@ -2,7 +2,6 @@ package com.amb.ambapp.controllers;
 
 
 import com.amb.ambapp.modules.Articles;
-import com.amb.ambapp.modules.Users;
 import com.amb.ambapp.services.ArticleService;
 import org.springframework.web.bind.annotation.*;
 

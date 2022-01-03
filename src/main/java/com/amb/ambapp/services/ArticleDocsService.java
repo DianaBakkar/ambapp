@@ -1,6 +1,6 @@
 package com.amb.ambapp.services;
 
-import com.amb.ambapp.modules.Article_Docs;;
+import com.amb.ambapp.modules.ArticleDocs;;
 import com.amb.ambapp.repositories.Article_DocsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,17 +11,17 @@ import java.io.File;
 import java.util.List;
 
 @Service
-public class Article_DocsService {
+public class ArticleDocsService {
     private Article_DocsRepository article_docsRepository;
 
     @Autowired
-    public Article_DocsService(Article_DocsRepository article_docsRepository) {
+    public ArticleDocsService(Article_DocsRepository article_docsRepository) {
         this.article_docsRepository = article_docsRepository;
     }
-    public List<Article_Docs> getArticle_Docs() {
+    public List<ArticleDocs> getArticle_Docs() {
         return article_docsRepository.findAll();
     }
-    public void addNewArticle_Docs(Article_Docs article_docs) {
+    public void addNewArticle_Docs(ArticleDocs article_docs) {
         article_docsRepository.save(article_docs);
     }
     public void deleteArticle_Docs(int Id) {
@@ -33,7 +33,7 @@ public class Article_DocsService {
     }
     @Transactional
     public void updateArticle_Docs(int id, File photo) {
-        Article_Docs article_docs = article_docsRepository.findById(id)
+        ArticleDocs article_docs = article_docsRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("Photo with Id " + id + " does not exists"));
         if (photo != null  && !article_docs.getPhoto().equals(photo)) {
             article_docs.setPhoto(photo);

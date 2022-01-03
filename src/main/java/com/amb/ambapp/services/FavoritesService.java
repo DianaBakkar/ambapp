@@ -1,8 +1,6 @@
 package com.amb.ambapp.services;
 import com.amb.ambapp.modules.Favorites;
-import com.amb.ambapp.modules.Users;
 import com.amb.ambapp.repositories.FavoritesRepository;
-import com.amb.ambapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

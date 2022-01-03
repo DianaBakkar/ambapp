@@ -1,23 +1,24 @@
 package com.amb.ambapp.modules;
 import javax.persistence.*;
+import java.util.List;
+
 @Entity
-@Table
+@Table(name="Types")
 public class Types {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int id;
 
-    private String label;
+    private int type;
     private int valid;
 
-    @ManyToOne
-    @JoinColumn(name = "typeId")
-    private Users user;
+    @OneToMany(mappedBy = "typeId")
+    private List<AppUser> users;
 
-    public Types(int id, String label, int valid) {
+    public Types(int id, int type, int valid) {
         this.id = id;
-        this.label = label;
+        this.type = type;
         this.valid = valid;
     }
 
@@ -29,12 +30,12 @@ public class Types {
         this.id = id;
     }
 
-    public String getLabel() {
-        return label;
+    public int getType() {
+        return type;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public void setType(int type) {
+        this.type = type;
     }
 
     public int getValid() {

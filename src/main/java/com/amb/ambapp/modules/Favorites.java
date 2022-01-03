@@ -3,21 +3,21 @@ import org.apache.catalina.User;
 
 import javax.persistence.*;
 @Entity
-@Table
+@Table(name = "Favorites")
 public class Favorites {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "articleId",nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "articleId")
     private Articles articles;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "userId",nullable = false)
-    private Users user;
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private AppUser user;
 
-    public Favorites(int id, int articleId, Articles articles,Users user) {
+    public Favorites(int id, Articles articles,AppUser user) {
         this.id = id;
         this.articles = articles;
         this.user = user;
@@ -31,7 +31,7 @@ public class Favorites {
 
     public void setArticleId( ) {this.articles = articles;}
 
-    public Users getUserId() {return user;}
+    public AppUser getUserId() {return user;}
 
     public void setUserId(int userId) {this.user = user;}
 }

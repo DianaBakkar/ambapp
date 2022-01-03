@@ -1,20 +1,23 @@
 package com.amb.ambapp.modules;
 
 import javax.persistence.*;
+import java.util.List;
+
 @Entity
-@Table
-public class Article_Types {
+@Table(name="ArticleTypes")
+public class ArticleTypes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int id;
 
+    @Column(name="label")
     private String label;
-    @ManyToOne
-    @JoinColumn(name = "typeId")
-    private Articles article;
 
-    public Article_Types(int id, String label) {
+    @OneToMany(mappedBy = "typeId")
+    private List<Articles> article;
+
+    public ArticleTypes(int id, String label) {
         this.id = id;
         this.label = label;
     }

@@ -29,8 +29,8 @@ public class TypesController {
         return typesService.getTypes();
     }
     @PutMapping(path = "{id}")
-    public void updateTypes(@PathVariable("id") int id, @RequestParam(required = false) String label) {
-        typesService.updateType(id,label);
+    public void updateTypes(@PathVariable("id") int id, @RequestParam(required = false) int type) {
+        typesService.updateType(id,type);
     }
 
 

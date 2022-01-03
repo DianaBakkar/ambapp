@@ -1,9 +1,7 @@
 package com.amb.ambapp.services;
 
 import com.amb.ambapp.modules.Types;
-import com.amb.ambapp.modules.Users;
 import com.amb.ambapp.repositories.TypesRepository;
-import com.amb.ambapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,12 +30,12 @@ public class TypesService {
         typesRepository.deleteById(Id);
     }
     @Transactional
-    public void updateType(int id, String label) {
+    public void updateType(int id, int newType) {
         Types type = typesRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("Type with Id " + id + " does not exists"));
-        if (label != null && !label.isEmpty() && !type.getLabel().equals(label)) {
-            type.setLabel(label);
-        }
+      if(!(type.getType()==newType)){
+          type.setType(newType);
+      }
     }
 
 

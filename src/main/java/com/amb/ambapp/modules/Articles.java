@@ -2,9 +2,10 @@ package com.amb.ambapp.modules;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table
+@Table(name="Articles")
 public class Articles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,33 +15,32 @@ public class Articles {
     private String description;
     private double price;
     private Date publishDate;
-    private int status;
-    private String title;
     private int valid;
-
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name = "typeId",nullable = false)
-    private Article_Types typeId;
+    private String title;
 
 
-    @ManyToOne(fetch = FetchType.LAZY,optional=false)
-    @JoinColumn(name = "articleId")
-    private Favorites favorites;
 
-    @ManyToOne(fetch = FetchType.LAZY,optional=false)
-    @JoinColumn(name = "articleId_docs")
-    private Article_Docs article_docs;
+    @ManyToOne
+    @JoinColumn(name = "typeId")
+    private ArticleTypes typeId;
 
 
-    public Articles(int id, Article_Types typeId, String description, int price, Date publishDate, int status, String title,int valid) {
+    @OneToMany(mappedBy = "articles")
+    private List<Favorites> favorites;
+
+    @OneToMany(mappedBy = "articles")
+    private List<ArticleDocs> article_docs;
+
+
+    public Articles(int id, ArticleTypes typeId, String description, int price, Date publishDate, int valid, String title) {
         this.id = id;
         this.typeId = typeId;
         this.description = description;
         this.price = price;
         this.publishDate = publishDate;
-        this.status = status;
+        this.valid = valid;
         this.title=title;
-        this.valid=valid;
+
     }
 
     public int getId() {
@@ -51,11 +51,11 @@ public class Articles {
         this.id = id;
     }
 
-    public Article_Types getTypeId() {
+    public ArticleTypes getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(Article_Types typeId) {
+    public void setTypeId(ArticleTypes typeId) {
         this.typeId = typeId;
     }
 
@@ -83,12 +83,12 @@ public class Articles {
         this.publishDate = publishDate;
     }
 
-    public int getStatus() {
-        return status;
+    public int getValid() {
+        return valid;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setValid(int valid) {
+        this.valid = valid;
     }
 
     public String getTitle() {
@@ -99,11 +99,4 @@ public class Articles {
         this.title = title;
     }
 
-    public int getValid() {
-        return valid;
-    }
-
-    public void setValid(int valid) {
-        this.valid = valid;
-    }
 }

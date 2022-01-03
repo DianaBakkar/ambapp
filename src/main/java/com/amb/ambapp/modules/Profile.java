@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table
+@Table(name = "Profile")
 public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,8 +15,8 @@ public class Profile {
     private Date DOB;
     private String email;
 
-    @OneToOne(mappedBy = "profileId",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private Users user;
+    @OneToOne(mappedBy = "profileId")
+    private AppUser user;
 
 
 

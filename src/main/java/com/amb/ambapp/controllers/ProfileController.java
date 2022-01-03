@@ -1,9 +1,7 @@
 package com.amb.ambapp.controllers;
 
-import com.amb.ambapp.modules.Users;
 import com.amb.ambapp.services.ProfileService;
 import com.amb.ambapp.modules.Profile;
-import com.amb.ambapp.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;

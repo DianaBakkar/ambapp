@@ -4,19 +4,20 @@ import javax.persistence.*;
 import java.io.File;
 
 @Entity
-@Table
-public class Article_Docs {
+@Table(name="ArticleDocs")
+public class ArticleDocs {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "articleId",nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "articleId")
     private Articles articles;
 
+    @Column(name="photo")
     private File photo;
 
-    public Article_Docs(int id, int articleId, File photo,Articles articles) {
+    public ArticleDocs(int id, File photo, Articles articles) {
         this.id = id;
         this.articles = articles;
         this.photo = photo;

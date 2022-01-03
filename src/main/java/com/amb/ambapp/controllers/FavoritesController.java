@@ -1,6 +1,5 @@
 package com.amb.ambapp.controllers;
 
-import com.amb.ambapp.modules.Users;
 import com.amb.ambapp.services.FavoritesService;
 import com.amb.ambapp.modules.Favorites;
 import org.springframework.web.bind.annotation.*;
