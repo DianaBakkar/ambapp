@@ -34,7 +34,13 @@ public class AppUser implements UserDetails {
     private Boolean locked;
     private Boolean enabled;
     private int valid;
-    private int typeId;
+
+
+
+    @ManyToOne
+    @JoinColumn(name = "typeId")
+    private Types typeId;
+
 
     @OneToOne
     @JoinColumn(name = "profileId")
@@ -51,7 +57,9 @@ public class AppUser implements UserDetails {
                    AppUserRole appUserRole,
                    Boolean locked,
                    Boolean enabled,
-                   int typeId) {
+                   Types typeId,
+                   Profile profileId,
+                   int valid) {
 
         this.name = name;
         this.username = username;
@@ -61,6 +69,8 @@ public class AppUser implements UserDetails {
         this.locked = locked;
         this.enabled = enabled;
         this.typeId=typeId;
+        this.profileId=profileId;
+        this.valid=valid;
     }
 
     @Override

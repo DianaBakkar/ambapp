@@ -1,5 +1,5 @@
 package com.amb.ambapp.modules;
-import org.apache.catalina.User;
+
 
 import javax.persistence.*;
 @Entity
@@ -8,6 +8,7 @@ public class Favorites {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
 
     @ManyToOne
     @JoinColumn(name = "articleId")
