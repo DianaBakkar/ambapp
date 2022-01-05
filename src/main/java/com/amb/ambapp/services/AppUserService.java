@@ -2,25 +2,35 @@ package com.amb.ambapp.services;
 
 import com.amb.ambapp.modules.AppUser;
 import com.amb.ambapp.modules.Types;
+import com.amb.ambapp.registration.token.ConfirmationToken;
+import com.amb.ambapp.registration.token.ConfirmationTokenService;
 import com.amb.ambapp.repositories.AppUserRepository;
+import org.hibernate.NonUniqueResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
 public class AppUserService implements UserDetailsService {
 
-    private AppUserRepository appUserRepository;
+    private  final AppUserRepository appUserRepository;
+    private  final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final ConfirmationTokenService confirmationTokenService;
     private String message="User with email %s not found";
 
-    public AppUserService(AppUserRepository appUserRepository) {
+    public AppUserService(AppUserRepository appUserRepository, BCryptPasswordEncoder bCryptPasswordEncoder, ConfirmationTokenService confirmationTokenService) {
         this.appUserRepository = appUserRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.confirmationTokenService = confirmationTokenService;
     }
 
     @Override
@@ -28,6 +38,39 @@ public class AppUserService implements UserDetailsService {
         return appUserRepository.findByEmail(email).
                 orElseThrow(() -> new UsernameNotFoundException(String.format(message,email)));
     }
+
+    public String signUpUser(AppUser appUser) {
+
+        boolean userExists = appUserRepository
+                .findByEmail(appUser.getEmail())
+                .isPresent();
+        if(userExists==true) {
+            throw new IllegalStateException();
+
+        }
+
+            String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
+            appUser.setPassword(encodedPassword);
+            appUserRepository.save(appUser);
+
+
+            String token = UUID.randomUUID().toString();
+            ConfirmationToken confirmationToken = new ConfirmationToken(
+                    token,
+                    LocalDateTime.now(),
+                    LocalDateTime.now().plusMinutes(15),
+                    appUser
+            );
+            confirmationTokenService.saveConfirmationToken(confirmationToken);
+            //TODO:send email
+            return token;
+        }
+    public int enableAppUser(String email) {
+        return appUserRepository.enableAppUser(email);
+    }
+
+
+
 
     @Autowired
     public List<AppUser> getAppUsers() {
@@ -45,12 +88,14 @@ public class AppUserService implements UserDetailsService {
         }
         appUserRepository.deleteById(Id);
     }
+
+
     @Transactional
     public void updateUser(Long id, String username,String password) {
         AppUser user = appUserRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("User with Id " + id + " does not exists"));
-        if (username != null && !username.isEmpty() && !user.getUsername().equals(username)) {
-            user.setUsername(username);
+        if (username != null && !username.isEmpty() && !user.getLastName().equals(username)) {
+            user.setLastName(username);
         }
         if (password != null && !password.isEmpty() && !user.getPassword().equals(password)) {
             user.setPassword(password);

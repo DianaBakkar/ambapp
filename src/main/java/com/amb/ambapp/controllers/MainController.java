@@ -1,4 +1,4 @@
-package com.amb.ambapp.controllers;
+/*package com.amb.ambapp.controllers;
 
 import com.amb.ambapp.modules.AppUser;
 import com.amb.ambapp.services.AppUserService;
@@ -15,7 +15,7 @@ public class MainController {
 
     @PostMapping
     public void addNewAppUser(@RequestBody AppUser user) {
-        appUserService.addNewAppUser(user);
+        appUserService.signUpUser(user);
     }
     @DeleteMapping(path = "{id}")
     public void deleteUser(@PathVariable("id") Long id) {appUserService.deleteAppUser(id);}
@@ -29,3 +29,4 @@ public class MainController {
         appUserService.updateUser(id,username,password);
     }
 }
+*/

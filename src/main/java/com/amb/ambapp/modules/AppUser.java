@@ -22,17 +22,17 @@ public class AppUser implements UserDetails {
 
     @SequenceGenerator(name="user_sequence",sequenceName = "user_sequence",allocationSize = 1)
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="user_sequence")
     private Long id;
-    private String name;
-    private String username;
+    private String firstName;
+    private String lastName;
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;
 
-    private Boolean locked;
-    private Boolean enabled;
+    private Boolean locked=false;
+    private Boolean enabled=false;
     private int valid;
 
 
@@ -50,27 +50,31 @@ public class AppUser implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Favorites> favorites;
 
-    public AppUser(String name,
-                   String username,
+    public AppUser(String firstName,
+                   String lastName,
                    String email,
                    String password,
                    AppUserRole appUserRole,
-                   Boolean locked,
-                   Boolean enabled,
                    Types typeId,
                    Profile profileId,
                    int valid) {
 
-        this.name = name;
-        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.appUserRole = appUserRole;
-        this.locked = locked;
-        this.enabled = enabled;
         this.typeId=typeId;
         this.profileId=profileId;
         this.valid=valid;
+    }
+
+    public AppUser(String firstName, String lastName, String email, String password, AppUserRole user) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.appUserRole = appUserRole;
     }
 
     @Override
@@ -87,8 +91,18 @@ public class AppUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+
 
     @Override
     public boolean isAccountNonExpired() {
