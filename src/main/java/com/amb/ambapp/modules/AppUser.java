@@ -28,6 +28,7 @@ public class AppUser implements UserDetails {
     private String lastName;
     private String email;
     private String password;
+
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;
 
@@ -69,7 +70,7 @@ public class AppUser implements UserDetails {
         this.valid=valid;
     }
 
-    public AppUser(String firstName, String lastName, String email, String password, AppUserRole user) {
+    public AppUser(String firstName, String lastName, String email, String password, AppUserRole appUserRole) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -80,7 +81,7 @@ public class AppUser implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority=
-                new SimpleGrantedAuthority(appUserRole.name());
+                new SimpleGrantedAuthority("ADMIN");
         return Collections.singletonList(authority);
     }
 

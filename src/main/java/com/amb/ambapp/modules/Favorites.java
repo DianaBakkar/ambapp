@@ -24,6 +24,11 @@ public class Favorites {
         this.user = user;
     }
 
+    public Favorites(Articles articles, AppUser user) {
+        this.articles = articles;
+        this.user = user;
+    }
+
     public int getId() {return id;}
 
     public void setId(int id) {this.id = id;}

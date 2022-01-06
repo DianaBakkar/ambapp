@@ -1,4 +1,4 @@
-/*package com.amb.ambapp.controllers;
+package com.amb.ambapp.controllers;
 
 import com.amb.ambapp.modules.AppUser;
 import com.amb.ambapp.services.AppUserService;
@@ -8,10 +8,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/appUser")
-public class MainController {
+public class AppUserController {
     private AppUserService appUserService;
 
-    public MainController(AppUserService appUserService) {this.appUserService = appUserService;}
+    public AppUserController(AppUserService appUserService) {this.appUserService = appUserService;}
 
     @PostMapping
     public void addNewAppUser(@RequestBody AppUser user) {
@@ -29,4 +29,3 @@ public class MainController {
         appUserService.updateUser(id,username,password);
     }
 }
-*/

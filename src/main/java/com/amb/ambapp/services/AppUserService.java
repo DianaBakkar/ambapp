@@ -1,11 +1,10 @@
 package com.amb.ambapp.services;
 
 import com.amb.ambapp.modules.AppUser;
-import com.amb.ambapp.modules.Types;
+import com.amb.ambapp.modules.AppUserRole;
 import com.amb.ambapp.registration.token.ConfirmationToken;
 import com.amb.ambapp.registration.token.ConfirmationTokenService;
 import com.amb.ambapp.repositories.AppUserRepository;
-import org.hibernate.NonUniqueResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -45,7 +44,7 @@ public class AppUserService implements UserDetailsService {
                 .findByEmail(appUser.getEmail())
                 .isPresent();
         if(userExists==true) {
-            throw new IllegalStateException();
+            throw new IllegalStateException("email exists");
 
         }
 
@@ -103,17 +102,15 @@ public class AppUserService implements UserDetailsService {
 
 
     }
-    public void updateAppUserByAdmin(Long id, int valid, Types requester) {
-        if (requester.getType() == 1) {
+    public void disableAppUserByAdmin(Long id) {
+
             AppUser user = appUserRepository.findById(id)
                     .orElseThrow(() -> new IllegalStateException("User with Id " + id + " does not exists"));
-            if (valid == 0) {
-                user.setValid(0);
-            }
-            if (valid == 1) {
-                user.setValid(1);
-            }
-        }
-    }
+            if (!user.getEnabled()) {
+                user.setEnabled(false);
 
+            }
+
+
+    }
 }

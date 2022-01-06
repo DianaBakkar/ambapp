@@ -19,7 +19,7 @@ public class ArticlesController {
     public void deleteArticle(@PathVariable("id") int id) {
         articleService.deleteArticle(id);
     }
-    @GetMapping
+    @GetMapping("api/v1/articles/get")
     public List<Articles> getArticles() {
         return articleService.getArticles();
     }
