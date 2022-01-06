@@ -1,8 +1,10 @@
-package com.amb.ambapp.registration;
+package com.amb.ambapp.services;
 
 
 import com.amb.ambapp.modules.AppUser;
 import com.amb.ambapp.modules.AppUserRole;
+import com.amb.ambapp.registration.EmailValidator;
+import com.amb.ambapp.registration.RegistrationRequest;
 import com.amb.ambapp.registration.token.ConfirmationToken;
 import com.amb.ambapp.registration.token.ConfirmationTokenService;
 import com.amb.ambapp.services.AppUserService;

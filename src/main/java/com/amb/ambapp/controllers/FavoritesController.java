@@ -14,10 +14,6 @@ public class FavoritesController {
     private FavoritesService favoritesService;
     public FavoritesController(FavoritesService favoritesService) {this.favoritesService = favoritesService;}
 
-    //@PostMapping
-    //public void registerNewFavorites(@RequestBody Favorites favorites) {
-       // favoritesService.addNewFavorite(favorites);
-    //}
 
     @PostMapping
     public void addToFav(@RequestParam AppUser user, @RequestParam Articles article ){favoritesService.addToFav(user,article);}
@@ -27,10 +23,7 @@ public class FavoritesController {
         favoritesService.deleteFavorites(id);
     }
 
-   // @GetMapping
-    //public List<Favorites> getFavorites() {
-        //return favoritesService.getFavorites();
-   // }
+
    @GetMapping
    public List<Favorites> returnFavByUser(@RequestParam AppUser  user) {
       return favoritesService.returnFavByUser(user);

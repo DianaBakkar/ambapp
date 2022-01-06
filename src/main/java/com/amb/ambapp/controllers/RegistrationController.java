@@ -1,5 +1,7 @@
-package com.amb.ambapp.registration;
+package com.amb.ambapp.controllers;
 
+import com.amb.ambapp.registration.RegistrationRequest;
+import com.amb.ambapp.services.RegistrationService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

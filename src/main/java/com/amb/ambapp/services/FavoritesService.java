@@ -55,11 +55,7 @@ public class FavoritesService {
         Favorites favorites=new Favorites(article,user);
         favoritesRepository.save(favorites);
     }
-/*
-    public List<Favorites> returnAllFav(AppUser user){
-        return favoritesRepository.findAll(user);
-    }
-*/
+
 
     public List<Favorites> returnFavByUser(AppUser userId){
         List<Favorites> selectedList = new ArrayList<>();
